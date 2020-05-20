@@ -6,6 +6,7 @@ const multerConfig = require('./config/multer');
 const UserController = require('./app/controllers/UserController');
 const SessionController = require('./app/controllers/SessionController');
 const FileController = require('./app/controllers/FileController');
+const CategoriesController = require('./app/controllers/CategoriesController');
 
 const authMiddleware = require('./app/middlewares/auth');
 
@@ -21,5 +22,10 @@ routes.use(authMiddleware);
 routes.put('/users', UserController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
+
+routes.get('/categories', CategoriesController.index);
+routes.post('/categories', CategoriesController.store);
+routes.put('/categories', CategoriesController.update);
+routes.delete('/categories/:id', CategoriesController.delete);
 
 module.exports = routes;
