@@ -26,7 +26,7 @@ routes.post('/files', upload.single('file'), FileController.store);
 
 routes.get('/categories', CategoriesController.index);
 routes.post('/categories', CategoriesController.store);
-routes.put('/categories', CategoriesController.update);
+routes.put('/categories/:id', CategoriesController.update);
 routes.delete('/categories/:id', CategoriesController.delete);
 
 routes.get('/purchases', PurchaseController.index);

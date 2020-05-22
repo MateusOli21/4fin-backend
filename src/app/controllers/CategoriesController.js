@@ -34,6 +34,7 @@ class CategoriesController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
+      id: Yup.number(),
       name: Yup.string(),
       max_value: Yup.number(),
     });
@@ -42,14 +43,14 @@ class CategoriesController {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
-    const { name } = req.body;
-    const category = await Category.findOne({ where: { name } });
+    const { id } = req.params;
+    const category = await Category.findOne({ where: { id } });
 
     if (!category) {
       return res.status(400).json({ error: 'Category does not exists.' });
     }
 
-    const { id, max_value } = await category.update(req.body);
+    const { name, max_value } = await category.update(req.body);
 
     return res.status(200).json({ id, name, max_value });
   }
