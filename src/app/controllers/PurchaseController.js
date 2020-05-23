@@ -54,7 +54,7 @@ class PurchaseController {
         return res.status(400).json({ error: 'Category not found.' });
       }
 
-      const purchase = await Purchase.create({
+      const { id } = await Purchase.create({
         name,
         value,
         date,
@@ -62,11 +62,17 @@ class PurchaseController {
         category_id,
       });
 
-      return res.status(200).json(purchase);
+      return res.status(200).json({ id, name, value, date, category_id });
     }
 
-    const purchase = await Purchase.create({ name, value, date, user_id });
-    return res.status(200).json(purchase);
+    const { id } = await Purchase.create({
+      name,
+      value,
+      date,
+      user_id,
+    });
+
+    return res.status(200).json({ id, value, date, user_id, category_id });
   }
 
   async update(req, res) {
@@ -81,16 +87,17 @@ class PurchaseController {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
-    const { date } = req.body;
+    const { dateReq } = req.body;
 
-    if (date && isAfter(parseISO(date), new Date())) {
+    if (dateReq && isAfter(parseISO(dateReq), new Date())) {
       return res
         .status(400)
         .json({ error: 'You cannot create a purchase in future date.' });
     }
 
-    const { name } = req.body;
-    const purchase = await Purchase.findOne({ where: { name } });
+    const purchaseId = req.params.id;
+
+    const purchase = await Purchase.findOne({ where: { id: purchaseId } });
 
     if (!purchase) {
       return res.status(400).json({ error: 'Purchase not found.' });
@@ -108,7 +115,7 @@ class PurchaseController {
       }
     }
 
-    const { id, value, user_id } = await purchase.update(req.body);
+    const { id, value, user_id, name, date } = await purchase.update(req.body);
 
     return res
       .status(200)

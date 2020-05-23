@@ -31,7 +31,7 @@ routes.delete('/categories/:id', CategoriesController.delete);
 
 routes.get('/purchases', PurchaseController.index);
 routes.post('/purchases', PurchaseController.store);
-routes.put('/purchases', PurchaseController.update);
+routes.put('/purchases/:id', PurchaseController.update);
 routes.delete('/purchases/:id', PurchaseController.delete);
 
 module.exports = routes;
