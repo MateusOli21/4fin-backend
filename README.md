@@ -72,8 +72,6 @@ Resposta:
 
 ## Rotas Privadas
 
----
-
 ### Rotas de usuário
 
 #### Enviar arquivo
