@@ -16,8 +16,6 @@ Tanto o corpo quanto as respostas das requisições são no formato JSON.
 
 ## Rotas públicas
 
----
-
 ### Criar usuário
 
 ```
